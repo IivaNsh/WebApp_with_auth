@@ -31,8 +31,12 @@ app.use(session({
 }));
 
 
-const routers = require('./routers');
-app.use(routers);
+const index_routes = require('./routers/index');
+const users_routes = require('./routers/users');
+const login_routes = require('./routers/login');
+app.use("/", index_routes);
+app.use("/users", users_routes);
+app.use("/", login_routes);
 
 
 
