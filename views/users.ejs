@@ -1,0 +1,71 @@
+<%- include('partials/head.ejs', {title: title}) %>
+<%- include('partials/header.ejs') %>
+<body class="container">
+    <div>
+        <h1><%= title %></h1> 
+    </div>
+    <hr>
+    <div class="d-flex flex-row justify-content-between">
+        <div class="col">
+            <input class="btn btn-outline-secondary" id="clickMe" type="button" value="create new user" onclick="new_user();" />
+        </div>
+        <div class="col" style="overflow: none; display: block; scroll-behavior: smooth; height: 200px;">
+            <ul>
+                <% for(var i=0; i<users.length; i++) {%>
+                   <li><%= users[i] %></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const ul = document.querySelector("ul");
+        
+        async function new_user(){
+            await create_new_user("ivn@ivn.gm", "ivn", "1234");
+        }
+
+        async function create_new_user(email, name, password){
+            const url = window.location.href;
+            
+            let data = {
+                "email": email,
+                "password": password,
+                "name": name
+            }
+
+            fetch(url, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                redirect : "follow", // manual, *follow, error
+                body: JSON.stringify(data), // body data type must match "Content-Type" header
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                const node = document.createElement("li");
+                const textnode = document.createTextNode(JSON.stringify(data));
+                node.appendChild(textnode);
+                ul.appendChild(node)
+                console.log(data)
+            });
+            
+            
+            //return response.json();
+
+
+
+            // var xhr = new XMLHttpRequest();
+            // xhr.open("POST", host, true);
+            // xhr.setRequestHeader('Content-Type', 'application/json');
+            
+            // xhr.send(JSON.stringify({
+            //     "email": email,
+            //     "password": password,
+            //     "name": name
+            // }));
+        }
+    </script>
+</body>
+<%- include('partials/footer.ejs') %>

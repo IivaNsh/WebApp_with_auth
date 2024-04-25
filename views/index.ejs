@@ -1,0 +1,45 @@
+<%- include('partials/head.ejs', {title: title}) %>
+<body class="container">
+    <%- include('partials/header.ejs') %>
+    <div class="p-2">
+        <div>
+            <h1><%= title %></h1>
+        </div>
+        <hr>
+        <div>
+            <p>Here goes your home page content</p>
+            
+            <div class="row">
+                <div class="col">
+                    <md-block>
+                        ## Test heading
+                        a paragraph.
+                        ## second heading
+                        another paragraph
+                    </md-block>
+                    <md-block>
+                        ```javascript
+                        function square(number) {
+                            return number * number;
+                        }
+                        ```
+                    </md-block>
+                </div>
+                <div class="col">
+                    <md-block>
+                        ## Side paragraph
+                        some text of the paragraph
+                        ## second side paragraph
+                        another paragraph on the side
+                    </md-block>
+                </div>
+            </div>
+            <script type="module" src="scripts/md-block.js"></script>
+     
+        </div>
+        <hr>
+    </div>
+    
+    
+</body>
+<%- include('partials/footer.ejs') %>
