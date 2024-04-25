@@ -17,10 +17,9 @@ router.post("/", async (req, res) => {
     let id = crypto.randomBytes(20).toString('hex');
 
     const user = new Users({
-        "id": id,
-        "email": "ivansh@yandex.ru",
-        "password": "1234",
-        "name": "ivn"
+        "username": "ivn",
+        "hash": "spdlifjisdjf",
+        "salt": "sdfh328"
     });
 
     await user.save();

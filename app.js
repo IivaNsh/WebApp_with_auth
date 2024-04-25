@@ -20,6 +20,10 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 
+require("./passport");
+
+app.use(passport.initialize());
+
 const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions'});
 
 app.use(session({
