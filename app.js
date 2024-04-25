@@ -12,8 +12,6 @@ var connection = require("./database.js");
 
 const MongoStore = require("connect-mongo")(session);
 
-PORT = process.env.PORT;
-
 app.set('view engine', 'ejs');
 app.set("views", "./views");
 app.use(express.static(path.join(__dirname, 'public')))
@@ -24,8 +22,6 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions'});
 
-console.log(MongoStore);
-
 app.use(session({
     secret: "some secret",
     resave: false,
@@ -35,16 +31,12 @@ app.use(session({
 }));
 
 
-
-const indexRouter = require('./routers/index.js');
-app.use("/", indexRouter);
-const usersRouter = require('./routers/users.js');
-const { collection } = require('./models/users.js');
-app.use("/users", usersRouter);
+const routers = require('./routers');
+app.use(routers);
 
 
 
 
-app.listen(PORT, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log("server started!");
 })
