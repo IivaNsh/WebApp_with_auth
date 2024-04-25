@@ -23,6 +23,7 @@
     "md-block": "^0.0.1",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",
-    "passport": "^0.7.0"
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
   }
 }
