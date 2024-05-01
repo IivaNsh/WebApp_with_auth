@@ -1,4 +1,4 @@
-# Web app for testing MongoDB manioulations and Authentication implementation
+# Web app for testing MongoDB manipulations and Authentication implementation
 
 =======================
 
