@@ -1,0 +1,10 @@
+<% if(authenticated){ %>
+    <h1>You are on the protected page!</h1>
+    <form method ="POST" action="/logout">
+        <button type="submit">logout</button>
+    </form>
+
+    <% } else{ %>
+    <h1>You are not authenticated</h1>
+<% } %>
+

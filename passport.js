@@ -12,13 +12,19 @@ const customFeilds = {
 const verifyCallback =  (username, password, done) => {
     User.findOne({ username: username})
     .then((user) => {
-        if( !user ) { return done(null, false); }
+        console.log(user);
+        if( !user ) {
+            console.log("user not found");
+            return done(null, false); }
 
         const isValid = validatePassword(password, user.hash, user.salt);
         if( isValid ) {
+            console.log("all good");
+            
             return done(null, user);
         }
         else{
+            console.log("not valid password for user");
             return done(null, false)
         }
 
@@ -28,6 +34,18 @@ const verifyCallback =  (username, password, done) => {
     });
 };
 
-const strategy = new LocalStrategy(verifyCallback);
+const strategy = new LocalStrategy(customFeilds, verifyCallback);
 
 passport.use(strategy);
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser( (userId, done) => {
+    User.findById(userId)
+    .then(( user) => {
+        done(null, user);
+    })
+    .catch( err => done(err));
+});

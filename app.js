@@ -20,6 +20,16 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 
+const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions'});
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store:  sessionStore,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
+
 
 
 require("./passport");
@@ -27,15 +37,6 @@ require("./passport");
 app.use(passport.initialize());
 app.use(passport.session());
 
-const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions'});
-
-app.use(session({
-    secret: "some secret",
-    resave: false,
-    saveUninitialized: true,
-    store:  sessionStore,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
-}));
 
 const index_routes = require('./routers/index');
 const users_routes = require('./routers/users');
